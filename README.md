@@ -28,13 +28,15 @@ Back-end : 손찬규, 박정용
  - 로그인 페이지
  - 메인 페이지
  - 지도 페이지
- - 항공 메인 페이지
- - 항공 모달 (항공권 옵션 선택) (query parameter)
- - 항공권 리스트 페이지 (query parameter)
+ - 항공 메인 페이지 
+ - 항공 모달 (항공권 옵션 선택) (query parameter) ▶️ FE노정은
+ - 항공권 리스트 페이지 (query parameter) ▶️ FE노정은
  - 항공권 예약 및 결제 페이지 (navigate state 전달)
  - 네브바
  - 푸터
- - 로딩 페이지
+ - 로딩 페이지 ▶️ FE노정은
+ 
+
 
 ## 👩🏻‍💻 FRONTEND 각자의 역할
 <img width="508" alt="스크린샷 2022-08-14 오후 11 55 48" src="https://user-images.githubusercontent.com/78889402/184542683-c3a14f20-1d11-4c4b-9a67-5d0e811c48aa.png">
@@ -43,21 +45,22 @@ Back-end : 손찬규, 박정용
  - 카카오 로그인 (OAuth2.0)
  - 카카오 맵 API
  - swiper
- - datePicker
- - react modal
+ - datePicker ▶️ FE노정은
+ - react modal ▶️ FE노정은
  - anti desigh
- - react icon
- - react font awesome
- - react spinner
+ - react icon ▶️ FE노정은
+ - react font awesome ▶️ FE노정은
+ - react spinner ▶️ FE노정은
  
 ## 📅 구현기능
 ❤️ 카카오 맵 API를 이용해서 backEnd와 통신해서 data로 화면에 렌더링 <br />
 ❤️ 모달창에서 선택된 항공권 리스트를 화면에 렌더링 <br />
 ❤️ react swiper, anti design 라이브러리를 사용해서 mock data로 화면 렌더링 <br />
-❤️ fetch로 backEnd와 통신하여 항공 모달 도시 검색기능 구현 <br />
-❤️ query parameter, navigate, location로 항공 모달에서 항공 리스트 data로 데이터 전송 <br />
-❤️ 항공 리스트 페이지 query parameter로 필터링 가능 <br />
-❤️ 항공 모달 5개의 tap menu안에 각각 4개의 tap menu 기능 <br />
+❤️ fetch로 backEnd와 통신하여 항공 모달 도시 검색기능 구현 <br /> ▶️ FE노정은
+❤️ query parameter, navigate, location로 항공 모달에서 항공 리스트 data로 데이터 전송 <br /> ▶️ FE노정은
+❤️ 항공 리스트 페이지 query parameter로 필터링 기능 <br /> ▶️ FE노정은
+❤️ 항공 모달 5개의 tap menu안에 각각 4개의 tap menu 기능 <br /> ▶️ FE노정은
+❤️ datapicker로 탑승일 tap 구현 <br /> ▶️ FE노정은
 ❤️ OAuth 2.0을 이용한 소셜 로그인 구현 <br />
 ❤️ git, 오픈소스에 올리면 안되는 값들을 외부파일 (.env)에 환경변수를 정의하여 로그인 구현에 사용 <br />
 

@@ -1,82 +1,66 @@
+# 2차 프로젝트 "FREEPASS"
+> JEJUPASS 웹 사이트를 모티브하여 만든 항공권 구메 사이트 </br>
+> [FREEPASS 영상](https://youtu.be/S5ElqSBUMzM)
 <img width="689" alt="스크린샷 2022-08-12 오후 12 34 06" src="https://user-images.githubusercontent.com/83544570/184546628-78accbd5-dc81-4f0f-9276-f19eabdba1d3.png">
 
+#### [노정은 기술 블로그](https://jeongeuni.tistory.com/)
 
-# ✈️ 프로젝트 소개
+## 1. 제작 기간 & 참여 인원
+-  2022년 8월 1일(월) ~ 2022년 8월 12일(금) : 총 10일
+- Front-End : 🐥 노정은, 🐶 엄성훈, 🐱 이현주, 🦆 이혜진</br>
+Back-end : ⚽️ 손찬규, 🦅 박정용
 
-> [취뽀 FREEPASS 웹 사이트](http://freepass2.s3-website.ap-northeast-2.amazonaws.com/)<br/>
+
+## 2. 사용 기술
+- React
+- Javascript
+- Styled-component
+- AWS (배포하였지만 요금부과 문제로 내린 상태)
+- 라이브러리 : 카카오 로그인 (OAuth2.0), 카카오 맵 API, swiper, datePicker, react modal, anti desigh, react spinner
 
 
-### 🐥 프론트, 백엔드 깃허브
+## 3. 핵심 기술
+
+#### `JEJUPASS 웹 싸이트를 모티브한 팀 프로젝트`
+- 제주패스는 제주 여행의 슈퍼 앱으로 전세계 실시간 최저가 항공, 제주 맛집까지 제주도 여행의 모든 것을 확인할 수 있는 웹 사이트 입니다.
+- 저희는 그 중에서도 '항공 페이지'에 집중하여 구현하였습니다.
+- 또한 '깨깨오항공', '코팡항공' 등으로 정해놓고 이 기업들을 향해 날아가는 컨셉으로 재미있게 구성해보았습니다.
+
+#### `구현 기능`
+- 구현한 기능을 간략하게 소개하자면<br />
+카카오 로그인 -> 항공권 옵선 선택 후 조회 -> 항공권 선택 후 예약<br />
+항공 사이트의 기본적인 FLOW를 갖추고 있습니다.
+
+#### `개발 내용`
+- Navigation Bar
+- Footer
+- 회원가입, 로그인 페이지
+- 메인 페이지 
+- 지도 페이지
+- ESG 페이지
+- 항공 메인 페이지
+- 항공 모달 (항공권 옵션 선택) ▶️ FE노정은
+- 항공권 리스트 페이지 ▶️ FE노정은
+- 항공권 예약 및 결제 페이지
+- 로딩 페이지 ▶️ FE노정은
+<img width="508" alt="스크린샷 2022-08-14 오후 11 55 48" src="https://user-images.githubusercontent.com/78889402/184542683-c3a14f20-1d11-4c4b-9a67-5d0e811c48aa.png">
+
+#### `프론트, 백엔드 깃허브`
 > [팀 프로젝트 프론트엔드 GitHub](https://github.com/wecode-bootcamp-korea/35-2nd-FREEPASS-frontend)<br/>
 > [팀 프로젝트 백엔드 GitHub](https://github.com/wecode-bootcamp-korea/35-2nd-FREEPASS-backend)
 
-#
 
-### ✈️ JEJUPASS 웹 싸이트를 모티브한 팀 프로젝트
-
-- 제주패스는 제주 여행의 슈퍼 앱으로 전세계 실시간 최저가 항공, 제주 맛집까지 제주도 여행의 모든 것을 확인할 수 있는 웹 사이트 입니다.
-- 저희는 그 중에서도 '항공 페이지'에 집중하여 구현하였습니다.
-- 또한 '깨깨오항공', '코팡항공' 등으로 정해놓고 이 기업들을 향해 날아가는 컨셉으로 재미있게 구성해보았습니다!
-
-#
-
-### 📅 작업기간
- 2022년 8월 1일(월) ~ 2022년 8월 12일(금) : 총 10일
-
-#
-
-### 👥 우리 팀 일원!
-
-Front-End : 🐥 노정은, 🐶 엄성훈, 🐱 이현주, 🦆 이혜진</br>
-Back-end : ⚽️ 손찬규, 🦅 박정용
-
-#### [🐥 노정은](https://jeongeuni.tistory.com/54?category=1103401)
-- (클릭 시 블로그로 이동!)
-
-### 📅 Front-End 사용한 기술 스택
-
- <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"><br />
- 
-#
-
-### 👩🏻‍💻 FRONTEND 각 담당페이지<br/>
-
-- Navigation Bar
-- Footer
-- 회원가입, 로그인 페이지 / 카카오 로그인 (OAuth2.0)
-- 메인 페이지 / Swiper(Carousel)
-- 지도 페이지 / 카카오 맵 API
-- ESG 페이지 / Ant Design(Pull Page)
-- 항공 메인 페이지 / Swiper(Carousel), Ant Design(Carousel)
-- 항공 모달 (항공권 옵션 선택) (query parameter) / DatePicker, React Modal, React font awesome ▶️ FE노정은
-- 항공권 리스트 페이지 (query parameter) ▶️ FE노정은
-- 항공권 예약 및 결제 페이지 (navigate state 전달) 🐶
-- 로딩 페이지 React Spinner, React icon ▶️ FE노정은
-
-<img width="508" alt="스크린샷 2022-08-14 오후 11 55 48" src="https://user-images.githubusercontent.com/78889402/184542683-c3a14f20-1d11-4c4b-9a67-5d0e811c48aa.png">
-
-### 🥰 사용한 라이브러리 
- - 카카오 로그인 (OAuth2.0)
- - 카카오 맵 API
- - swiper
- - datePicker 
- - react modal 
- - anti desigh
- - react icon 
- - react font awesome 
- - react spinner
- 
-### 📅 구현기능
-❤️ 카카오 맵 API를 이용해서 backEnd와 통신해서 data로 화면에 렌더링 <br />
-❤️ 모달창에서 선택된 항공권 리스트를 화면에 렌더링 <br />
-❤️ react swiper, anti design 라이브러리를 사용해서 mock data로 화면 렌더링 <br />
-❤️ fetch로 backEnd와 통신하여 항공 모달 도시 검색기능 구현 ▶️ FE노정은 <br /> 
-❤️ query parameter, navigate, location로 항공 모달에서 항공 리스트 data로 데이터 전송 ▶️ FE노정은 <br /> 
-❤️ 항공 리스트 페이지 query parameter로 필터링 기능 ▶️ FE노정은 <br /> 
-❤️ 항공 모달 5개의 tap menu안에 각각 4개의 tap menu 기능 ▶️ FE노정은 <br /> 
-❤️ datapicker로 탑승일 tap 구현  ▶️ FE노정은 <br />
-❤️ OAuth 2.0을 이용한 소셜 로그인 구현 <br />
-❤️ git, 오픈소스에 올리면 안되는 값들을 외부파일 (.env)에 환경변수를 정의하여 로그인 구현에 사용 <br />
+#### `구체적인 구현기능`
+- 카카오 맵 API를 이용해서 backEnd와 통신해서 data로 화면에 렌더링 <br />
+- 모달창에서 선택된 항공권 리스트를 화면에 렌더링 <br />
+- react swiper, anti design 라이브러리를 사용해서 mock data로 화면 렌더링 <br />
+- fetch로 backEnd와 통신하여 항공 모달 도시 검색기능 구현 ▶️ FE노정은 <br /> 
+- query parameter, navigate, location로 항공 모달에서 항공 리스트 data로 데이터 전송 ▶️ FE노정은 <br /> 
+- 항공 리스트 페이지 query parameter로 필터링 기능 ▶️ FE노정은 <br /> 
+- 항공 모달 5개의 tap menu안에 각각 4개의 tap menu 기능 ▶️ FE노정은 <br /> 
+- datapicker로 탑승일 tap 구현  ▶️ FE노정은 <br />
+- OAuth 2.0을 이용한 소셜 로그인 구현 <br />
+- git, 오픈소스에 올리면 안되는 값들을 외부파일 (.env)에 환경변수를 정의하여 로그인 구현에 사용 <br />
 
 #
 

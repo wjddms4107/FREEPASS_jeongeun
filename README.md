@@ -42,24 +42,11 @@ Back-end : ⚽️ 손찬규, 🦅 박정용
 - 항공권 리스트 페이지 ▶️ FE노정은
 - 항공권 예약 및 결제 페이지
 - 로딩 페이지 ▶️ FE노정은
-<img width="508" alt="스크린샷 2022-08-14 오후 11 55 48" src="https://user-images.githubusercontent.com/78889402/184542683-c3a14f20-1d11-4c4b-9a67-5d0e811c48aa.png">
 
 #### `프론트, 백엔드 깃허브`
 > [팀 프로젝트 프론트엔드 GitHub](https://github.com/wecode-bootcamp-korea/35-2nd-FREEPASS-frontend)<br/>
 > [팀 프로젝트 백엔드 GitHub](https://github.com/wecode-bootcamp-korea/35-2nd-FREEPASS-backend)
 
-
-#### `구체적인 구현기능`
-- 카카오 맵 API를 이용해서 backEnd와 통신해서 data로 화면에 렌더링 <br />
-- 모달창에서 선택된 항공권 리스트를 화면에 렌더링 <br />
-- react swiper, anti design 라이브러리를 사용해서 mock data로 화면 렌더링 <br />
-- fetch로 backEnd와 통신하여 항공 모달 도시 검색기능 구현 ▶️ FE노정은 <br /> 
-- query parameter, navigate, location로 항공 모달에서 항공 리스트 data로 데이터 전송 ▶️ FE노정은 <br /> 
-- 항공 리스트 페이지 query parameter로 필터링 기능 ▶️ FE노정은 <br /> 
-- 항공 모달 5개의 tap menu안에 각각 4개의 tap menu 기능 ▶️ FE노정은 <br /> 
-- datapicker로 탑승일 tap 구현  ▶️ FE노정은 <br />
-- OAuth 2.0을 이용한 소셜 로그인 구현 <br />
-- git, 오픈소스에 올리면 안되는 값들을 외부파일 (.env)에 환경변수를 정의하여 로그인 구현에 사용 <br />
 
 ## 4. 문제 해결 경험
 #### 4-1. 항공모달은 menu Tap 지옥
@@ -134,24 +121,105 @@ const ICON_ARR = [
 </details>
 
 #### 4-2. 출발지, 도착지 사진 선택 & 검색 기능
-- 이미지를 클릭하고 원하는 도시를 검색하여 클릭해도 옵션이 선택되며 도시에 해당하는 영어네임도 함께 반영됩니다.
-- 즉, 클릭이벤트의 event.target으로 구현해야하는데 항상 name속성을 이용했지만 검색기능에서는 클릭되는 태그가 p태그여서 name속성이 없었고 어떤 속성을 이용해야하나 아니면 다른 방법을 고안해야하나 고민을 많이 했습니다. 
+- 이미지를 클릭하고 원하는 도시를 검색하여 클릭해도 옵션이 선택되며 도시에 해당하는 영어 네임도 함께 반영됩니다.
+- 즉, 클릭 이벤트의 event.target으로 구현해야 하는데 항상 name 속성을 이용했지만 검색 기능에서는 클릭되는 태그가 p 태그여서 name 속성이 없었고 어떤 속성을 이용해야 하나 아니면 다른 방법을 고안해야 하나 고민을 많이 했습니다.
 - console로 찍어 p태그에는 어떠한 속성이 있는지 살펴보았고 이에 p태그에는 id속성이 있다는 것을 찾을 수 있었습니다.
-- 결국 해당 도시가 반영되게 하기 위해 사진은 e.target.value의 name속성, 검색기능에서는 e.target.value의 id속성을 이용하여 구현할 수 있었습니다.
-- 또한 해당 
-- 결국 해당 도시가 반영되게 하기 위해 사진은 e.target.value의 name속성, 검색기능에서는 e.target.value의 id속성을 이용하여 구현할 수 있었습니다.
+- 결국 해당 도시가 반영되게 하기 위해 사진은 e.target.value의 name속성, 검색 기능에서는 e.target.value의 id속성을 이용하여 구현할 수 있었습니다.
+- 또한 해당 도시에 맞는 영어 네임도 함께 반영했는데 이는 도시에 해당하는 영어 네임을 객체로 만들고 map을 돌려 구현할 수 있었습니다.
 
 <details>
-<summary><b>구현한 코드</b></summary>
+<summary><b>도시를 클릭하면 해당 도시가 반영되게 하기</b></summary>
 <div markdown="1">
   
 ~~~javascript
+const clickImgDiv = (e, cityName) => {
+  const { name } = e.target;
+  setContry(prev => ({ ...prev, [name]: cityName }));
+};
+
+const clickCity = (e, cityName) => {
+  const { id } = e.target;
+  setContry(prev => ({ ...prev, [id]: cityName }));
+};
 ~~~
   
 </div>
 </details>
 
-### 🎥 각 페이지별 View
+<details>
+<summary><b>해당 도시에 맞는 영어 네임도 함께 반영되게 하기</b></summary>
+<div markdown="1">
+  
+~~~javascript
+const departureToEn = CITYNAME_EN_DATA.map(data => {
+  return data[departure];
+});
+
+const destinationToEn = CITYNAME_EN_DATA.map(data => {
+  return data[destination];
+});
+
+// 도시에 해당하는 영어네임을 객체로 만든 일부
+const CITYNAME_EN_DATA = [
+  {
+    서울: 'SEL',
+    제주: 'CJU',
+    김포: 'GMP',
+    부산: 'PUS',
+    제네바: 'GVA',
+    콘제도: 'RNI',
+  },
+];
+~~~
+  
+</div>
+</details>
+
+#### 4-3. 캘린더 라이브러리(Datepicker)를 이용한 날짜 선택 기능
+- 2차 프로젝트를 하면서 가장 도전적인 부분은 캘린더 라이브러리를 사용하는 것이었습니다. 라이브러리를 처음 시도해보았기 때문입니다.
+- Datepicker를 이용하여 출발일, 도착일을 선택하면 탑승일에 해당 날짜가 표시되고 캘린더도 커스텀하여 화이트 앤 블루로 스타일링했습니다.
+- 이에 공식문서를 뜯어보았는데 여러 예시가 많이 나와있었고 저는 연속된 두 개의 월이 나오는 캘린더가 필요하여 'Multiple months' 기능이 되는 걸로 가져와 구현할 수 있었습니다.
+- onchange함수에 많은 수식들이 있는데 이는 선택된 날짜의 date함수를 원하는 형태로 가공하고 이 값을 state로 활용하여 탑승일에 반영하였습니다.
+- [캘린더 라이브러리에 대한 기술 블로그](https://jeongeuni.tistory.com/51)
+
+#### 4-4. 선택한 옵션들을 담아 보내는 query parameter
+- 항공 모달에서 무엇을 선택했는지 그 정보를 내 다음 페이지인 항공권 리스트 페이지에 보내줘야 했습니다.
+- 옵션 정보는 quert String으로 보내주면 되는데 다만 backend에서 `22.08.13(토) -> 2022-08-13 / 전체 -> 'normal' , 비즈니스 -> 'business' / 편도 ->'one_way' , 왕복 -> 'round_trip'` 이렇게 데이터를 보내달라고 요청을 했습니다.
+- 또한 편도면 출발지만 보내주고 왕복이면 출발지와 도착지 모두를 보내야 했습니다.
+
+<details>
+<summary><b>가공한 쿼리파라미터</b></summary>
+<div markdown="1">
+  
+~~~javascript
+const goToAirList = () => {
+    setIsLoading(true); //loading page를 위한 부분
+    const departure_date = hyphenBoardStartDay.slice(0, 8); //출발일 2022-08-14 형식으로 가공
+    const arrival_date = hyphenBoardEndDay.slice(0, 8); //도착일 2022-08-14 형식으로 가공
+    const seat_class = rating === '전체' ? 'normal' : 'business'; //좌석등급 'normal', 'business' 형식으로 가공
+    const ticket_type = searchSort === '편도' ? 'one_way' : 'round_trip'; //backend에서 편도인지 왕복인지 알 수 있게 'one_way', 'round_trip' 가공 
+    
+    //왕복일 때는 출발지만 보내주고 왕복일 때는 도착지,출발지 모두 보내기
+    const oneWayQueryString = `?ticket_type=${ticket_type}&departure_location=${departure}&arrival_location=${destination}&departure_date=${`20${departure_date}`}&adult=${adult}&infant=${child}&child=${baby}&remaining_seat=${seat_class}`;
+    const roundTripQueryString = `?ticket_type=${ticket_type}&departure_location=${departure}&arrival_location=${destination}&departure_date=${`20${departure_date}`}&departure_date=${`20${arrival_date}`}&adult=${adult}&infant=${child}&child=${baby}&remaining_seat=${seat_class}`;
+    const finalQueryString =
+      ticket_type === 'one_way' ? oneWayQueryString : roundTripQueryString;
+      
+    //setTimeout은 loading page를 위한 부분
+    setTimeout(() => {
+      setIsLoading(false);
+      //위에서 가공한 데이터를 퀴르스트링으로 담아주는 부분!!!
+      navigate(`/airmodal${finalQueryString}`);
+      navigate(`/airlist${finalQueryString}`);
+      fetch(`${BASE_URL}/flights/schedules${location.search}`);
+    }, 5000);
+  };
+~~~
+  
+</div>
+</details>
+
+## 5. 🎥 각 페이지별 View
 > [유튜브 데모 영상](https://youtu.be/S5ElqSBUMzM)
 
 <table>
@@ -243,9 +311,7 @@ const ICON_ARR = [
   </tbody>
 </table>
 
-# 
-
-### 💫 프로젝트 협업 Tool
+## 6. 프로젝트 협업 Tool
 
 - GitHub : 각 페이지별 branch 관리.
 
@@ -296,7 +362,7 @@ const ICON_ARR = [
 
 #
 
-### ✈️ 회고록
+## 7. 회고록
 - [🐥 노정은님 회고록(1) - 기능 구현에 대한 회고](https://jeongeuni.tistory.com/53)  <br />
 - [🐥 노정은님 회고록(2) - 팀 프로젝트에 대한 회고](https://jeongeuni.tistory.com/54)  <br />
 

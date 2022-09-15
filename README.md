@@ -1,7 +1,6 @@
 # 2차 프로젝트 "FREEPASS"
 > JEJUPASS 웹 사이트를 모티브하여 만든 항공권 구메 사이트 </br>
 > [FREEPASS 영상](https://youtu.be/S5ElqSBUMzM)
-<img width="689" alt="스크린샷 2022-08-12 오후 12 34 06" src="https://user-images.githubusercontent.com/83544570/184546628-78accbd5-dc81-4f0f-9276-f19eabdba1d3.png">
 
 #### [노정은 기술 블로그](https://jeongeuni.tistory.com/)
 
@@ -64,8 +63,82 @@ Back-end : ⚽️ 손찬규, 🦅 박정용
 
 ## 4. 문제 해결 경험
 #### 4-1. 항공모달은 menu Tap 지옥
-- 항공모달에서 항공권의 옵션들(출발지, 도착지, 탑습일, 인원 및 좌석등급)을 선택하여 항공권을 검색하는 것이기 때문에 어찌보면 내가 기능의 시작이라고 할 수 있어서 그래서 책임감을 가지고 구현해냈다! 
-그래서 책임감을 가지고 구현해냈다! 
+- 항공 모달에서 항공권의 옵션들(출발지, 도착지, 탑승일, 인원 및 좌석 등급)을 선택하여 항공권을 조회할 수 있고 선택한 옵션을 가지고 항공권 리스트 페이지로 넘어갑니다.
+- 선택할 것이 많은 항공 모달은 menu Tap 지옥이었습니다. 첫 번째로 항공, 자동차, 숙박, 맛집, 카페의 menu tap이 있고 두 번째로는 항공 메뉴를 눌렀을 때 나오는 항공 옵션에 대한 tap 기능이 또 있습니다.
+- 먼저 항공, 자동차, 숙박, 맛집, 카페의 각 아이콘을 눌렀을 때 해당하는 탭으로 바뀌어야 했습니다. 이에 각 탭을 컴포넌트화하고 MAPPING_OBJ라는 상수 데이터를 만들어 key가 1이면 `<AirPlainTap />`로 가는 식으로 세팅을 해주었습니다.
+- 또한 초깃값이 1인 currentId라는 state를 만들고 해당 아이콘을 클릭하면 currentId를 바꿔주는 clickHandler 함수를 생성한 뒤 아이콘을 배열로 만들어 map을 돌리고 배열의 index를 이용하여 알맞은 아이콘과 tap을 불러올 수 있도록 구현하였습니다.
+- 항공 탭에서의 menu Tap은 출발, 도착, 탑승일, 인원 및 좌석 등급으로 구성됩니다. 이 또한 위와 비슷하게 '출발'을 클릭 시 currentId가 1로 바뀌며 {MAPPING_OBJ[1]}가 되고 MAPPING_OBJ 객체의 1번인 Arrive 탭으로 이동하게 되는 로직입니다.
+- 이번에 menu Tap 지옥을 겪으며 확실히 내 기술로 만들고 넘어간 것이 무척 인상 깊습니다.
+
+<details>
+<summary><b>menu Tap 구현코드</b></summary>
+<div markdown="1">
+  
+~~~javascript
+const AirModal = ({ closeModal }) => {
+  //currentId의 현재값은 1이다.
+  const [currentId, setCurrentId] = useState(1);
+  
+  //해당 메뉴를 클릭하면 currentId를 바꿔주는 함수이다.
+  const clickHandler = id => {
+    setCurrentId(id);
+  };
+
+  return (
+    <>
+      <UlDiv>
+        <DeleteButton onClick={closeModal}>X</DeleteButton>
+        <IconUl>
+          //각 아이콘을 배열로 만들어 map을 돌리고 배열의 Index값을 이용하였다.
+          {ICON_ARR.map((cate, idx) => {
+            return (
+              <IconLi
+                key={idx}
+                className={cate}
+                //클릭하면 해당 index값에 +1을 한 값이 currentId 들어가게 된다.
+                onClick={e => clickHandler(idx + 1)}
+                primary={currentId === idx + 1}
+              >
+                //메뉴 탭의 아이콘도 배열로 담았는데 CATEGORY_ARR의 index값을 이용하여 알맞은 아이콘을 보여주게했다.
+                {ICON_ARR[idx]}
+              </IconLi>
+            );
+          })}
+        </IconUl>
+      </UlDiv>
+      //MAPPING_OBJ는 컴포넌트를 객체로 만들어 준 것인데 위의 클릭이벤트에 의해 currentId가 바뀌며 알맞은 tap을 불러준다.
+      <div>{MAPPING_OBJ[currentId]}</div>
+    </>
+  );
+};
+
+const MAPPING_OBJ = {
+  1: <AirPlainTap />,
+  2: <CarTap />,
+  3: <SleepTap />,
+  4: <ShopTap />,
+  5: <CafeTap />,
+};
+
+
+const ICON_ARR = [
+  <i key={1} className="fa-solid fa-plane" />,
+  <i key={2} className="fa-solid fa-car" />,
+  <i key={3} className="fa-solid fa-bed" />,
+  <i key={4} className="fa-solid fa-tag" />,
+  <i key={5} className="fa-solid fa-mug-saucer" />,
+];
+~~~
+  
+</div>
+</details>
+
+#### 4-2. 출발지, 도착지 사진 선택 & 검색 기능
+- 이미지를 클릭하고 원하는 도시를 검색하여 클릭해도 옵션이 선택되며 도시에 해당하는 영어네임도 함께 반영됩니다.
+- 즉, 클릭이벤트의 event.target으로 구현해야하는데 항상 name속성을 이용했지만 검색기능에서는 클릭되는 태그가 p태그여서 name속성이 없었고 어떤 속성을 이용해야하나 아니면 다른 방법을 고안해야하나 고민을 많이 했습니다. 
+- aㅊ로 찍어 여러 속성들에 적용해봤고 이에 p태그의 이벤트 속성에는 id가 있다는 것을 찾을 수 있었습니다.
+- 즉, 클릭이벤트의 event.target으로 구현해야하는데 항상 name속성을 이용했지만 검색기능에서는 클릭되는 태그가 p태그여서 name속성이 없었고 어떤 속성을 이용해야하나 고민을 많이 했습니다. 콘로 찍어 여러 속성들에 적용해봤고 이에 p태그의 이벤트 속성에는 id가 있다는 것을 찾을 수 있었습니다.
+- 해당 도시가 반영되게 하기 위해서는 사진은 e.target.value의 name속성,  검색기능에서는 e.target.value의  id속성을 이용했고
 
 <details>
 <summary><b>구현한 코드</b></summary>

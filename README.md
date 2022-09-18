@@ -123,7 +123,7 @@ const ICON_ARR = [
 </div>
 </details>
 
-#### 4-2. 출발지, 도착지 사진 선택 & 검색 기능
+#### 4-2. 출발지, 도착지 사진 선택 & 검색 기능 -> [현재는 Redux-toolKit으로 리팩토링 되었습니다!](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/store/city.js#L3)
 <img width="400" alt="스크린샷 2022-09-16 오전 11 24 42" src="https://user-images.githubusercontent.com/78889402/190543069-1fa42fc4-27a3-493b-b440-8d7c441a80a2.png">
 
 

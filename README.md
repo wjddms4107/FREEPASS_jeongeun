@@ -12,6 +12,7 @@ Back-end : ⚽️ 손찬규, 🦅 박정용
 
 ## 2. 사용 기술
 - React
+- Redux-toolKit(수료 후 AirModal페이지 Redux-toolKit로 리팩토링)
 - Javascript
 - Styled-component
 - AWS (배포하였지만 요금부과 문제로 내린 상태)

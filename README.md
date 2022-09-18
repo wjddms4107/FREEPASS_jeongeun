@@ -12,7 +12,7 @@ Back-end : ⚽️ 손찬규, 🦅 박정용
 
 ## 2. 사용 기술
 - React
-- Redux-toolKit([수료 후 AirModal페이지 Redux-toolKit로 리팩토링](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/store/store.js#L7- Javascript))
+- Redux-toolKit (수료 후 AirModal페이지 Redux-toolKit로 리팩토링)
 - Styled-component
 - AWS (배포하였지만 요금부과 문제로 내린 상태)
 - 라이브러리 : 카카오 로그인 (OAuth2.0), 카카오 맵 API, swiper, datePicker, react modal, anti desigh, react spinner

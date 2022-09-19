@@ -50,7 +50,7 @@ Back-end : ⚽️ 손찬규, 🦅 박정용
 
 
 ## 4. 문제 해결 경험
-#### 4-1. 항공모달은 menu Tap 지옥
+#### 4-1. 항공모달은 menu Tap 지옥 [코드로 이동](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/pages/airModal/AirModal.js#L9)
 <img width="500" alt="스크린샷 2022-09-16 오전 11 21 56" src="https://user-images.githubusercontent.com/78889402/190542763-8ef9301d-6cc4-4433-82e8-38a3356a0dda.png">
 
 - 항공 모달에서 항공권의 옵션들(출발지, 도착지, 탑승일, 인원 및 좌석 등급)을 선택하여 항공권을 조회할 수 있고 선택한 옵션을 가지고 항공권 리스트 페이지로 넘어갑니다.
@@ -195,6 +195,21 @@ const CITYNAME_EN_DATA = {
 <div markdown="1">
 
 ~~~javascript
+// store
+let contry = createSlice({
+  name: 'contry',
+  initialState: { departure: '김포', destination: '어디로 떠나시나요?' },
+  reducers: {
+    clickCityDep(state, action) {
+      state.departure = action.payload;
+    },
+    clickCityDes(state, action) {
+      state.destination = action.payload;
+    },
+  },
+});
+-------------------
+// 활용
 onClick={() => {
   name === 'departure'
     ? dispatch(clickCityDep(city_name))
@@ -203,6 +218,7 @@ onClick={() => {
 ~~~
 
 - action.payload로는 도시이름을 보내야하기에 기존의 name,id 속성을 어떻게 활용할 수 있을까 고민을 했습니다.
+- 고민 후 내린 결론은 값이 'departure' or 'destination' 단 두 개 이기때문에 삼항연산자를 활용하여 구현했습니다.
 
 </div>
 </details> 
@@ -211,12 +227,12 @@ onClick={() => {
 <img width="400" alt="스크린샷 2022-09-16 오전 11 23 50" src="https://user-images.githubusercontent.com/78889402/190542966-7332350c-93c1-4f62-ae8f-e25fa5a6733b.png">
 
 - 2차 프로젝트를 하면서 가장 도전적인 부분은 캘린더 라이브러리를 사용하는 것이었습니다. 라이브러리를 처음 시도해보았기 때문입니다.
-- Datepicker를 이용하여 출발일, 도착일을 선택하면 탑승일에 해당 날짜가 표시되고 캘린더도 커스텀하여 화이트 앤 블루로 스타일링했습니다.
-- 이에 공식문서를 뜯어보았는데 여러 예시가 많이 나와있었고 저는 연속된 두 개의 월이 나오는 캘린더가 필요하여 'Multiple months' 기능이 되는 걸로 가져와 구현할 수 있었습니다.
-- onchange함수에 많은 수식들이 있는데 이는 선택된 날짜의 date함수를 원하는 형태로 가공하고 이 값을 state로 활용하여 탑승일에 반영하였습니다.
+- Datepicker를 이용하여 출발일, 도착일을 선택하면 탑승일에 해당 날짜가 표시되고 캘린더도 화이트 앤 블루로 커스텀해야 했습니다.
+- 이에 공식문서를 뜯어보았습니다. 공식문서에는 여러 예시가 많이 나와있었고 저는 연속된 두 개의 월이 나오는 캘린더가 필요하여 'Multiple months' 기능이 되는 걸로 가져와 구현할 수 있었습니다.
+- 또한 onchange함수에 많은 수식들이 있는데 이는 선택된 날짜의 date함수를 원하는 형태로 가공하고 이 값을 state로 활용하여 탑승일에 반영하였습니다. [코드로 이동](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/pages/airModal/filterBar/Dep.js#L18) 
 - [캘린더 라이브러리에 대한 기술 블로그](https://jeongeuni.tistory.com/51)
 
-#### 4-4. 선택한 옵션들을 담아 보내는 query parameter
+#### 4-4. 선택한 옵션들을 담아 보내는 query parameter [코드](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/pages/airModal/AirPlainTap.js#L23)
 - 항공 모달에서 무엇을 선택했는지 그 정보를 내 다음 페이지인 항공권 리스트 페이지에 보내줘야 했습니다.
 - 옵션 정보는 quert String으로 보내주면 되는데 다만 backend에서 `22.08.13(토) -> 2022-08-13 / 전체 -> 'normal' , 비즈니스 -> 'business' / 편도 ->'one_way' , 왕복 -> 'round_trip'` 이렇게 데이터를 보내달라고 요청을 했습니다.
 - 또한 편도면 출발지만 보내주고 왕복이면 출발지와 도착지 모두를 보내야 했습니다.
@@ -228,21 +244,21 @@ onClick={() => {
 ~~~javascript
 const goToAirList = () => {
     setIsLoading(true); //loading page를 위한 부분
-    const departure_date = hyphenBoardStartDay.slice(0, 8); //출발일 2022-08-14 형식으로 가공
-    const arrival_date = hyphenBoardEndDay.slice(0, 8); //도착일 2022-08-14 형식으로 가공
+    const departure_date = hyphenBoardStartDay.slice(0, 8); //출발일 22-08-14 형식으로 가공
+    const arrival_date = hyphenBoardEndDay.slice(0, 8); //도착일 22-08-14 형식으로 가공
     const seat_class = rating === '전체' ? 'normal' : 'business'; //좌석등급 'normal', 'business' 형식으로 가공
     const ticket_type = searchSort === '편도' ? 'one_way' : 'round_trip'; //backend에서 편도인지 왕복인지 알 수 있게 'one_way', 'round_trip' 가공 
     
     //왕복일 때는 출발지만 보내주고 왕복일 때는 도착지,출발지 모두 보내기
     const oneWayQueryString = `?ticket_type=${ticket_type}&departure_location=${departure}&arrival_location=${destination}&departure_date=${`20${departure_date}`}&adult=${adult}&infant=${child}&child=${baby}&remaining_seat=${seat_class}`;
-    const roundTripQueryString = `?ticket_type=${ticket_type}&departure_location=${departure}&arrival_location=${destination}&departure_date=${`20${departure_date}`}&departure_date=${`20${arrival_date}`}&adult=${adult}&infant=${child}&child=${baby}&remaining_seat=${seat_class}`;
+    const roundTripQueryString = oneWayQueryString + `&departure_date=${`20${arrival_date}`};
     const finalQueryString =
       ticket_type === 'one_way' ? oneWayQueryString : roundTripQueryString;
       
     //setTimeout은 loading page를 위한 부분
     setTimeout(() => {
       setIsLoading(false);
-      //위에서 가공한 데이터를 퀴르스트링으로 담아주는 부분!!!
+      //위에서 가공한 데이터를 퀴르스트링으로 담아주기
       navigate(`/airmodal${finalQueryString}`);
       navigate(`/airlist${finalQueryString}`);
       fetch(`${BASE_URL}/flights/schedules${location.search}`);
@@ -253,7 +269,187 @@ const goToAirList = () => {
 </div>
 </details>
 
-## 5. 🎥 각 페이지별 View
+## 5. 더 나은 코드로의 고민 (수료 후 리팩토링) 
+### 5-1. Redux-toolKit으로 리팩토링
+- 기존에 react state로만 상태 관리할 때는 부모 요소에서 모든 state를 관리해야 했기에 코드가 지저분하고 길었습니다. 또한 많은 state를 각종 탭에 보내려니 props로 전달해야 하는 것이 너무 많았습니다. 이는 가독성을 떨어트려 내가 무엇을 props로 왜 전달하고 있는지도 알아채기 어려웠고 상태 관리의 비효율을 보여주는 것 같았습니다.
+- Redux-toolKit을 적용해야 함을 깨달았고 Redux-toolKit을 공부하여 FREEPASS에 적용시켰습니다. 실제로 적용시키니 코드가 훨씬 깔끔해졌고 왜 상태 관리 라이브러리를 사용하는지 뼈저리게 느낄 수 있었습니다.
+- [기존의 코드](https://github.com/wjddms4107/FREEPASS-frontend/blob/39a2524aafc26027ce4a1be8467e2a7f4f3686c8/src/pages/airModal/AirPlainTap.js#L10) -> [redux-toolkit적용 코드](https://github.com/wjddms4107/FREEPASS-frontend/blob/feature/develop/src/pages/airModal/AirPlainTap.js#L12)
+
+<details>
+<summary><b>기존의 코드(props 전달)</b></summary>
+<div markdown="1">
+
+~~~javascrpt
+const MAPPING_OBJ = {
+   1: (
+     <Arrive
+       data="출발지"
+       name="departure"
+       cityData={cityData}
+       clickImgDiv={clickImgDiv}
+       clickCity={clickCity}
+     />
+   ),
+   2: (
+     <Arrive
+       data="도착지"
+       name="destination"
+       cityData={cityData}
+       clickImgDiv={clickImgDiv}
+       clickCity={clickCity}
+     />
+   ),
+   3: (
+     <Dep
+       changeBoardStartDay={changeBoardStartDay}
+       changeBoardEndDay={changeBoardEndDay}
+       changeSearchSort={changeSearchSort}
+     />
+   ),
+   4: (
+     <People
+       plusPassengerNumber={plusPassengerNumber}
+       minusPassengerNumber={minusPassengerNumber}
+       changeRating={changeRating}
+       passengerInfo={passengerInfo}
+     />
+   ),
+};
+~~~
+
+</div>
+</details>
+
+<details>
+<summary><b>redux-toolkit적용 코드</b></summary>
+<div markdown="1">
+
+~~~javascrpt
+const MAPPING_OBJ = {
+  1: <Arrive title="출발지" name="departure" />,
+  2: <Arrive title="도착지" name="destination" />,
+  3: <Dep />,
+  4: <People />,
+};
+~~~
+
+</div>
+</details>
+
+### 5-2. 더 나은 방법은 있으니 구글링을 해보자 & 비슷한 코드는 함수로 관리하자
+#### [리팩토링 전](https://github.com/wjddms4107/FREEPASS-frontend/blob/39a2524aafc26027ce4a1be8467e2a7f4f3686c8/src/pages/airModal/filterBar/Dep.js#L7)
+- 탑승일을 구현할 때 `Thu Sep 01 2022 09:50:38 GMT+0900 (한국 표준시)`형식의 date객체를 `22.09.10(월)`형식으로 만들어야했습니다.
+- 또한 backend와 통신을 할 때는 `22.09.10(월)`형식을 `2022-09-10`으로 바꿔서 보내야했습니다. 이에 replace메서드를 활용하여 모든 "."을 "-"로 대체하려 했지만 replace메서드는 맨 앞의 한 "."만 바꿔주었고 할 수 없이 hyphenFinalStartDate라는 변수를 하나더 만들었습니다.
+
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+
+~~~javascrpt
+//`22.09.10(월)`형식으로 만들기
+const Dep = ({ changeBoardStartDay, changeBoardEndDay, changeSearchSort }) => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+
+  const onChange = dates => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+
+    const year = start.getFullYear().toString().slice(2);
+    const month = start.getMonth() + 1;
+    const day = start.getDate();
+    const weekday = start.toString().slice(0, 3);
+    const weekdayToKo = WEEKDAY_TO_KO.map(data => {
+      return data[weekday];
+    });
+
+    const finalStartDate = `${year}.${month >= 10 ? month : '0' + month}.${
+      day >= 10 ? day : '0' + day
+    }(${weekdayToKo})`;
+
+    const hyphenFinalStartDate = `${year}-${
+      month >= 10 ? month : '0' + month
+    }-${day >= 10 ? day : '0' + day}(${weekdayToKo})`;
+
+    const endYear = end.getFullYear().toString().slice(2);
+    const endMonth = end.getMonth() + 1;
+    const endDay = end.getDate();
+    const endWeekday = end.toString().slice(0, 3);
+
+    const endweekdayToKo = WEEKDAY_TO_KO.map(data => {
+      return data[endWeekday];
+    });
+
+    const finalEndDate = `${endYear}.${
+      endMonth >= 10 ? endMonth : '0' + endMonth
+    }.${endDay >= 10 ? endDay : '0' + endDay}(${endweekdayToKo})`;
+
+    const hyphenFinalEndDate = `${endYear}-${
+      endMonth >= 10 ? endMonth : '0' + endMonth
+    }-${endDay >= 10 ? endDay : '0' + endDay}(${endweekdayToKo})`;
+
+    changeBoardStartDay(finalStartDate, hyphenFinalStartDate);
+    changeBoardEndDay(finalEndDate, hyphenFinalEndDate);
+    changeSearchSort(finalStartDate, finalEndDate);
+};
+---------------  
+
+
+~~~
+
+</div>
+</details>
+
+#### [리팩토링 후](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/pages/airModal/filterBar/Dep.js#L13)
+- finalStartDate와 finalEndDate을 구할 때 start와 end만 다르고 모두 같은 형식이기에 함수로 관리하였습니다.
+- 또한 backend와 통신을 위해 "."을 "-"로 바꾸는데 너무 많은 코드가 쓰이는 거 같았고 분명히 방법이 있을거라 생각했습니다. 이에 구글링에 들어갔고 정규식을 사용하는 방법이 있었습니다.
+- 프로젝트를 할 때는 너무 정신이 없었고 지금보다 더 아가개발자였기에 이렇게 할 생각을 못했던 것 같습니다. 더 좋은 코드로 만들기 위해 고민하는 시간을 통해 성장하고 있음을 느꼈고 더 성장하여 효율성 높은 코드를 짤 수 있는 개발자로 성장하고 싶습니다.
+
+<details>
+<summary><b>리팩토링 후의 코드</b></summary>
+<div markdown="1">
+
+~~~javascrpt
+// 함수로 관리하기
+const onChange = dates => {
+  const [start, end] = dates;
+  setStartDate(start);
+  setEndDate(end);
+
+  function setBoardDate(startOrEnd) {
+    const year = startOrEnd.getFullYear().toString().slice(2);
+    const month = startOrEnd.getMonth() + 1;
+    const day = startOrEnd.getDate();
+    const weekday = startOrEnd.toString().slice(0, 3);
+    const weekdayToKo = WEEKDAY_TO_KO.map(data => {
+      return data[weekday];
+    });
+    const finalDate = `${year}.${month >= 10 ? month : '0' + month}.${
+      day >= 10 ? day : '0' + day
+    }(${weekdayToKo})`;
+    return finalDate;
+  }
+
+  dispatch(setBoardStartDay(setBoardDate(start)));
+  dispatch(setBoardEndDay(setBoardDate(end)));
+  dispatch(
+    setBoardDate(start) === setBoardDate(end)
+      ? setSearch('편도')
+      : setSearch('왕복')
+  );
+};
+----------------
+// 정규식 사용하기
+const departure_date = boardStartDay.slice(0, 8).replace(/\./g, '-'); //"22.09.22(목)" -> "22-09-22"형식으로 바꾸기
+~~~
+
+</div>
+</details>
+
+
+
+## 6. 🎥 각 페이지별 View
 > [유튜브 데모 영상](https://youtu.be/S5ElqSBUMzM)
 
 <table>
@@ -345,7 +541,7 @@ const goToAirList = () => {
   </tbody>
 </table>
 
-## 6. 프로젝트 협업 Tool
+## 7. 프로젝트 협업 Tool
 
 - GitHub : 각 페이지별 branch 관리.
 
@@ -396,7 +592,7 @@ const goToAirList = () => {
 
 #
 
-## 7. 회고록
+## 8. 회고록
 - [🐥 노정은님 회고록(1) - 기능 구현에 대한 회고](https://jeongeuni.tistory.com/53)  <br />
 - [🐥 노정은님 회고록(2) - 팀 프로젝트에 대한 회고](https://jeongeuni.tistory.com/54)  <br />
 

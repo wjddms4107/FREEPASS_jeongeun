@@ -123,7 +123,7 @@ const ICON_ARR = [
 </div>
 </details>
 
-#### 4-2. 출발지, 도착지 사진 선택 & 검색 기능 -> [현재는 Redux-toolKit으로 리팩토링 되었습니다!](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/store/city.js#L3)
+#### 4-2. 출발지, 도착지 사진 선택 & 검색 기능 -> [현재는 Redux-toolKit으로 리팩토링 되었습니다!](https://github.com/wjddms4107/FREEPASS-frontend/blob/b4fab451a03facbc0e56894c9f9c72c7db028166/src/store/contry.js#L3)
 <img width="400" alt="스크린샷 2022-09-16 오전 11 24 42" src="https://user-images.githubusercontent.com/78889402/190543069-1fa42fc4-27a3-493b-b440-8d7c441a80a2.png">
 
 
@@ -131,7 +131,7 @@ const ICON_ARR = [
 - 즉, 클릭 이벤트의 event.target으로 구현해야 하는데 항상 name 속성을 이용했지만 검색 기능에서는 클릭되는 태그가 p 태그여서 name 속성이 없었고 어떤 속성을 이용해야 하나 아니면 다른 방법을 고안해야 하나 고민을 많이 했습니다.
 - console로 찍어 p태그에는 어떠한 속성이 있는지 살펴보았고 이에 p태그에는 id속성이 있다는 것을 찾을 수 있었습니다.
 - 결국 해당 도시가 반영되게 하기 위해 사진은 e.target.value의 name속성, 검색 기능에서는 e.target.value의 id속성을 이용하여 구현할 수 있었습니다.
-- 또한 해당 도시에 맞는 영어 네임도 함께 반영했는데 이는 도시에 해당하는 영어 네임을 객체로 만들고 map을 돌려 구현할 수 있었습니다.
+- 또한 해당 도시에 맞는 영어 네임도 함께 반영했는데 이는 도시에 해당하는 영어 네임을 객체로 만들어 구현하였습니다.
 
 <details>
 <summary><b>도시를 클릭하면 해당 도시가 반영되게 하기</b></summary>
@@ -155,31 +155,57 @@ const clickCity = (e, cityName) => {
 <details>
 <summary><b>해당 도시에 맞는 영어 네임도 함께 반영되게 하기</b></summary>
 <div markdown="1">
-  
-~~~javascript
-const departureToEn = CITYNAME_EN_DATA.map(data => {
-  return data[departure];
-});
 
-const destinationToEn = CITYNAME_EN_DATA.map(data => {
-  return data[destination];
-});
+~~~javascript
+<Panel width="180px" onClick={() => clickHandler(1)}>
+  <Text>출발</Text>
+  <Button>
+    <Text>
+      {departure}
+      <span>{CITYNAME_EN_DATA[departure]}</span>
+    </Text>
+  </Button>
+</Panel>
+<Panel width="180px" onClick={() => clickHandler(2)}>
+  <Text>도착</Text>
+  <Button>
+    <Text>
+      {destination}
+      <span>{CITYNAME_EN_DATA[destination]}</span>
+    </Text>
+  </Button>
+</Panel>
 
 // 도시에 해당하는 영어네임을 객체로 만든 일부
-const CITYNAME_EN_DATA = [
-  {
+const CITYNAME_EN_DATA = {
     서울: 'SEL',
     제주: 'CJU',
     김포: 'GMP',
     부산: 'PUS',
     제네바: 'GVA',
     콘제도: 'RNI',
-  },
-];
+},
 ~~~
   
 </div>
 </details>
+
+<details>
+<summary><b>Redux-toolKit으로 리팩토링</b></summary>
+<div markdown="1">
+
+~~~javascript
+onClick={() => {
+  name === 'departure'
+    ? dispatch(clickCityDep(city_name))
+    : dispatch(clickCityDes(city_name));
+}}
+~~~
+
+- action.payload로는 도시이름을 보내야하기에 기존의 name,id 속성을 어떻게 활용할 수 있을까 고민을 했습니다.
+
+</div>
+</details> 
 
 #### 4-3. 캘린더 라이브러리(Datepicker)를 이용한 날짜 선택 기능
 <img width="400" alt="스크린샷 2022-09-16 오전 11 23 50" src="https://user-images.githubusercontent.com/78889402/190542966-7332350c-93c1-4f62-ae8f-e25fa5a6733b.png">

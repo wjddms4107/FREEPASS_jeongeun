@@ -8,6 +8,7 @@ import CafeTap from './CafeTap';
 
 const AirModal = ({ closeModal }) => {
   const [currentId, setCurrentId] = useState(1);
+
   const clickHandler = id => {
     setCurrentId(id);
   };

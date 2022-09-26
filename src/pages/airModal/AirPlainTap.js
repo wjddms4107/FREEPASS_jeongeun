@@ -22,8 +22,8 @@ const AirPlainTap = () => {
 
   const goToAirList = () => {
     setIsLoading(true);
-    const departure_date = boardStartDay.slice(0, 8).replace(/\./g, '-'); //"22.09.22(목)" -> "22-09-22"형식으로 바꾸기
-    const arrival_date = boardEndDay.slice(0, 8).replace(/\./g, '-'); //"22.09.22(목)" -> "22-09-22"형식으로 바꾸기
+    const departure_date = boardStartDay.slice(0, 8).replace(/\./g, '-'); //"22.09.22(목)" -> "22-09-22"
+    const arrival_date = boardEndDay.slice(0, 8).replace(/\./g, '-'); //"22.09.22(목)" -> "22-09-22"형
     const seat_class = rating === '전체' ? 'normal' : 'business';
     const ticket_type = search === '편도' ? 'one_way' : 'round_trip';
     const oneWayQueryString = `?ticket_type=${ticket_type}&departure_location=${departure}&arrival_location=${destination}&departure_date=${`20${departure_date}`}&adult=${adult}&infant=${child}&child=${baby}&remaining_seat=${seat_class}`;

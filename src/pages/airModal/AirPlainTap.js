@@ -33,18 +33,20 @@ const AirPlainTap = () => {
       ticket_type === 'one_way' ? oneWayQueryString : roundTripQueryString;
     setTimeout(() => {
       setIsLoading(false);
-      navigate(`/airmodal${finalQueryString}`);
       navigate(`/airlist${finalQueryString}`);
       fetch(`${BASE_URL}/flights/schedules${location.search}`);
     }, 5000);
   };
 
+  const getCityImageData = async () => {
+    const res = await fetch('/data/ArriveCityImageData.json').then(res =>
+      res.json()
+    );
+    dispatch(setCityImageData(res));
+  };
+
   useEffect(() => {
-    fetch('/data/CITYDATA_ARR.json')
-      .then(res => res.json())
-      .then(data => {
-        dispatch(setCityImageData(data));
-      });
+    getCityImageData();
   }, []);
 
   const clickHandler = id => {
@@ -110,14 +112,10 @@ const AirPlainTap = () => {
         </FlightInner>
         <Search
           onClick={() => {
-            if (
-              destination === '어디로 떠나시나요?' ||
-              boardStartDay === '탑승일을 선택하세요.'
-            ) {
-              return alert('모든 항목을 선택해주세요!');
-            } else {
-              goToAirList();
-            }
+            destination === '어디로 떠나시나요?' ||
+            boardStartDay === '탑승일을 선택하세요.'
+              ? alert('모든 항목을 선택해주세요!')
+              : goToAirList();
           }}
         >
           {search}

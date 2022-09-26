@@ -5,7 +5,6 @@ import AirModal from '../pages/AirModal/AirModal';
 Modal.setAppElement('#root');
 
 const ModalComponent = () => {
-  // return <div>ModalFilterBar</div>;
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0,0,0,0.6)',

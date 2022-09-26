@@ -23,7 +23,7 @@ const AirModal = ({ closeModal }) => {
               <IconLi
                 key={idx}
                 className={cate}
-                onClick={e => clickHandler(idx + 1)}
+                onClick={() => clickHandler(idx + 1)}
                 primary={currentId === idx + 1}
               >
                 {ICON_ARR[idx]}

@@ -10,23 +10,28 @@ const Arrive = ({ title, name }) => {
   const cityImageData = useSelector(state => state.cityImageData);
   const dispatch = useDispatch();
   const [cityInput, setCityInput] = useState('');
-  const [cityMockData, setCityMockData] = useState([]);
+  const [citySearchData, setCitySearchData] = useState([]);
+
+  const getCitySearchData = async () => {
+    const res = await fetch('/data/ArriveCitySearchData.json').then(res =>
+      res.json()
+    );
+    // const res = await fetch(`${BASE_URL}/flights/locations`).then(res =>
+    //   res.json()
+    // );
+    setCitySearchData(res.result);
+  };
 
   useEffect(() => {
-    // fetch(`${BASE_URL}/flights/locations`)
-    fetch('/data/CITY_API.json')
-      .then(res => res.json())
-      .then(data => {
-        setCityMockData(() => data.result);
-      });
+    getCitySearchData();
   }, []);
 
-  if (!(cityMockData.length && cityImageData.length))
-    return <div>로딩중입니다.</div>;
-
-  const sortedCities = cityMockData.filter(data => {
+  const sortedCities = citySearchData.filter(data => {
     return data.city_name.includes(cityInput);
   });
+
+  if (!(citySearchData.length && cityImageData.length))
+    return <div>로딩중입니다.</div>;
 
   return (
     <ArriveDiv>
@@ -36,7 +41,7 @@ const Arrive = ({ title, name }) => {
       </RightDiv>
       <CenterDiv>
         <SearchInput changeCityData={e => setCityInput(() => e.target.value)} />
-        <CitySearchList name={name} cityMockData={sortedCities} />
+        <CitySearchList name={name} citySearchData={sortedCities} />
       </CenterDiv>
       <LeftDiv>
         <Text>국내</Text>

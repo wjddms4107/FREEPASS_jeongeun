@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { clickCityDep, clickCityDes } from '../../../store/contry';
 import styled from 'styled-components';
 
-const CitySearchList = ({ cityMockData, name }) => {
+const CitySearchList = ({ citySearchData, name }) => {
   const dispatch = useDispatch();
 
   return (
     <SearchListDiv>
-      {cityMockData.map(({ id, city_name, code }) => {
+      {citySearchData.map(({ id, city_name, code }) => {
         return (
           <ListCityName
             key={id}

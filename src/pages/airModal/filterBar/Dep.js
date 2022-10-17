@@ -44,12 +44,12 @@ const Dep = () => {
   };
 
   return (
-    <ArriveDiv>
-      <RightDiv>
-        <p>항공편 날짜를</p>
+    <DepArticle>
+      <RightSection>
+        <h1>항공편 날짜를</h1>
         <p>선택하세요.</p>
-      </RightDiv>
-      <LeftDiv>
+      </RightSection>
+      <LeftSection>
         <DatePicker
           selected={startDate}
           onChange={onChange}
@@ -61,8 +61,8 @@ const Dep = () => {
           locale={ko}
           // minDate={new Date()}
         />
-      </LeftDiv>
-    </ArriveDiv>
+      </LeftSection>
+    </DepArticle>
   );
 };
 
@@ -78,19 +78,20 @@ const WEEKDAY_TO_KO = [
   },
 ];
 
-const ArriveDiv = styled.div`
+const DepArticle = styled.article`
   height: 430px;
   display: flex;
   justify-content: center;
   background-color: #fff;
 `;
 
-const RightDiv = styled.div`
+const RightSection = styled.section`
   width: 260px;
   height: 100%;
   padding-top: 48px;
   border-right: 1px solid #eaeaea;
   background-color: #fff;
+  h1,
   p {
     line-height: 1.7rem;
     font-size: 24px;
@@ -98,7 +99,7 @@ const RightDiv = styled.div`
   }
 `;
 
-const LeftDiv = styled.div`
+const LeftSection = styled.section`
   width: 800px;
   height: 100%;
   padding-top: 48px;

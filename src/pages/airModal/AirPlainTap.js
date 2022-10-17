@@ -102,7 +102,7 @@ const AirPlainTap = () => {
         </FlightInner>
         <FlightInner primary={currentId === 4}>
           <Panel width="190px" onClick={() => clickHandler(4)}>
-            <Text>인원 및 좌석등급 </Text>
+            <Text>인원 및 좌석등급</Text>
             <Button>
               <Text>
                 {adultCount} {childCount} {babyCount} {rating}
@@ -121,7 +121,7 @@ const AirPlainTap = () => {
           {search}
         </Search>
       </InnerBar>
-      <div>{MAPPING_OBJ[currentId]}</div>
+      <article>{MAPPING_OBJ[currentId]}</article>
     </>
   );
 };
@@ -190,7 +190,7 @@ const Panel = styled.span`
   font-size: 10px;
 `;
 
-const Text = styled.span`
+const Text = styled.h1`
   margin: ${props => props.margin};
   line-height: 1.2rem;
   color: #606060;

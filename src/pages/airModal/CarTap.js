@@ -5,17 +5,17 @@ const CarTap = () => {
   return (
     <ArriveDiv>
       <CenterDiv>
-        <p>
+        <h1>
           렌터카는
           <br />
           준비중입니다.
-        </p>
+        </h1>
       </CenterDiv>
     </ArriveDiv>
   );
 };
 
-const ArriveDiv = styled.div`
+const ArriveDiv = styled.section`
   display: flex;
   justify-content: center;
   height: 538px;
@@ -30,7 +30,7 @@ const CenterDiv = styled.div`
   padding-right: 25px;
   background-color: #fff;
   text-align: center;
-  p {
+  h1 {
     position: absolute;
     top: 50%;
     left: 50%;

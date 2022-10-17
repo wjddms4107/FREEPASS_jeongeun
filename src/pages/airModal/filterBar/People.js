@@ -19,12 +19,12 @@ const People = () => {
   };
 
   return (
-    <PeopleDiv>
-      <RightDiv>
-        <p>탑승인원과 좌석</p>
+    <PeopleArticle>
+      <RightSection>
+        <h1>탑승인원과 좌석</h1>
         <p>등급을 선택해주세요.</p>
-      </RightDiv>
-      <CenterDiv>
+      </RightSection>
+      <CenterSection>
         <Text>탑승인원</Text>
         {PASSENGER_DATA.map(({ id, sort, desc, name }) => {
           return (
@@ -59,8 +59,8 @@ const People = () => {
             </PassengerDiv>
           );
         })}
-      </CenterDiv>
-      <LeftDiv>
+      </CenterSection>
+      <LeftSection>
         <Text>좌석등급</Text>
         {SEAT_DATA.map(({ id, seat_rating }) => {
           return (
@@ -73,8 +73,8 @@ const People = () => {
             </Rating>
           );
         })}
-      </LeftDiv>
-    </PeopleDiv>
+      </LeftSection>
+    </PeopleArticle>
   );
 };
 
@@ -94,18 +94,19 @@ const SEAT_DATA = [
   { id: 2, seat_rating: '비즈니스석' },
 ];
 
-const PeopleDiv = styled.div`
+const PeopleArticle = styled.article`
   height: 430px;
   display: flex;
   justify-content: center;
   background-color: #fff;
 `;
 
-const RightDiv = styled.div`
+const RightSection = styled.section`
   width: 260px;
   height: 100%;
   padding-top: 48px;
   background-color: #fff;
+  h1,
   p {
     line-height: 1.7rem;
     font-size: 24px;
@@ -113,7 +114,7 @@ const RightDiv = styled.div`
   }
 `;
 
-const CenterDiv = styled.div`
+const CenterSection = styled.section`
   width: 400px;
   height: 100%;
   padding-top: 48px;
@@ -171,7 +172,7 @@ const ButtonPlus = styled.button`
   background: #fff;
 `;
 
-const LeftDiv = styled.div`
+const LeftSection = styled.section`
   width: 400px;
   height: 100%;
   padding-top: 48px;
@@ -180,7 +181,7 @@ const LeftDiv = styled.div`
   background-color: #fff;
 `;
 
-const Text = styled.p`
+const Text = styled.h2`
   font-size: 16px;
   font-weight: bold;
 `;

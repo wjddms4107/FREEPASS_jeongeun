@@ -30,20 +30,20 @@ const Arrive = ({ title, name }) => {
     return data.city_name.includes(cityInput);
   });
 
-  if (!(citySearchData.length && cityImageData.length))
+  if ((citySearchData.length & cityImageData.length) === 0)
     return <div>로딩중입니다.</div>;
 
   return (
-    <ArriveDiv>
-      <RightDiv>
-        <p>{title}를</p>
+    <ArriveArticle>
+      <RightSection>
+        <h1>{title}를</h1>
         <p>선택해주세요.</p>
-      </RightDiv>
-      <CenterDiv>
+      </RightSection>
+      <CenterSection>
         <SearchInput changeCityData={e => setCityInput(() => e.target.value)} />
         <CitySearchList name={name} citySearchData={sortedCities} />
-      </CenterDiv>
-      <LeftDiv>
+      </CenterSection>
+      <LeftSection>
         <Text>국내</Text>
         <CityList>
           {cityImageData[0].map(({ id, img, city_name_ko }) => {
@@ -63,23 +63,24 @@ const Arrive = ({ title, name }) => {
             );
           })}
         </CityList>
-      </LeftDiv>
-    </ArriveDiv>
+      </LeftSection>
+    </ArriveArticle>
   );
 };
 
-const ArriveDiv = styled.div`
+const ArriveArticle = styled.article`
   display: flex;
   justify-content: center;
   height: 430px;
   background-color: #fff;
 `;
 
-const RightDiv = styled.div`
+const RightSection = styled.section`
   width: 260px;
   height: 100%;
   background-color: #fff;
   padding-top: 48px;
+  h1,
   p {
     line-height: 1.7rem;
     font-size: 24px;
@@ -87,7 +88,7 @@ const RightDiv = styled.div`
   }
 `;
 
-const CenterDiv = styled.div`
+const CenterSection = styled.section`
   width: 400px;
   height: 100%;
   padding-top: 48px;
@@ -98,7 +99,7 @@ const CenterDiv = styled.div`
   border-right: 1px solid #eaeaea;
 `;
 
-const LeftDiv = styled.div`
+const LeftSection = styled.section`
   width: 400px;
   height: 100%;
   padding-top: 48px;
@@ -107,7 +108,7 @@ const LeftDiv = styled.div`
   background-color: #fff;
 `;
 
-const Text = styled.p`
+const Text = styled.h2`
   font-size: 20px;
   font-weight: bold;
 `;
